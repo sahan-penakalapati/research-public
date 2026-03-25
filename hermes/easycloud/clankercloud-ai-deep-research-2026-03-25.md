@@ -1,266 +1,140 @@
-# Clanker Cloud (clankercloud.ai) — Deep Research Brief
+# Clanker Cloud (clankercloud.ai) Deep Research
+
 Date: 2026-03-25
-Prepared for: Sahan
+Analyst: Hermes Agent
 
 ## TL;DR
-Clanker Cloud positions itself as a local-first, agentic DevOps/infrastructure control plane: deploy from GitHub, inspect infra in natural language, operate across multi-cloud + Kubernetes, keep credentials local, and approve execution before changes.
+Clanker Cloud positions itself as a local-first, agentic infrastructure control plane focused on deploy/ops workflows across multiple clouds and Kubernetes, with explicit emphasis on keeping credentials local and requiring human-approved execution. The product appears to be early-stage but shipping actively, with a public open-source CLI repo (`bgdnvk/clanker`) showing meaningful recent commit activity and integration work around AI agents.
 
-The strongest credibility signals are:
-- public open-source CLI repo (`bgdnvk/clanker`) with active commits, releases, and non-trivial scope
-- explicit product pages for builders/DevOps/researchers
-- a demo page with multiple workflow videos
-- transparent "beta" language + terms that clearly put execution risk on customer side
+The strongest differentiator is operational posture (local-first credential custody + approval gates) rather than pure model capability. The clearest risks are early go-to-market maturity signals (beta messaging, desktop builds not publicly linked, roadmap-heavy copy) and limited independently verifiable customer outcomes in public sources.
 
-Main diligence concern: marketing claims are broad versus currently verifiable production proof (compliance attestations, enterprise references, uptime guarantees, detailed architecture/security docs are not publicly documented in depth).
+## Research scope and method
+- Primary sources: clankercloud.ai pages and metadata, structured/embedded JSON-LD, navigation pages, pricing and roadmap copy.
+- Third-party/independent signals: GitHub API metadata for `bgdnvk/clanker`, DNS/hosting footprint checks, and competitor-facing pages from Rivet for market framing.
+- Constraint: this report relies on publicly accessible evidence only; no private dashboards or customer references were available.
 
----
+## What Clanker Cloud is claiming
+From homepage/meta/JSON-LD and page content:
+- Positioning: “Local-first agentic infrastructure control plane.”
+- Installation posture: “Install in about one minute” on macOS/Windows/Linux.
+- Security posture: credentials remain local; bring-your-own AI keys.
+- Coverage: AWS, GCP, Azure, Kubernetes, Cloudflare, Hetzner, DigitalOcean, GitHub workflows.
+- Core jobs-to-be-done:
+  1) deploy from GitHub with inferred plans + approval,
+  2) inspect infrastructure in natural language,
+  3) multi-cloud scanning/topology visualization,
+  4) extensibility via custom Python/Node agents.
+- Commercial shape on site:
+  - Beta: $0
+  - Basic: $20/mo
+  - Pro: $30/mo
+  - Enterprise: custom
+- Maturity messaging includes “Desktop builds are not publicly linked yet” and a roadmap with mobile, Claude/Codex terminal integrations, and cybersecurity agents.
 
-## 1) What the product is (positioning)
-Core positioning from official site:
-- "Local-first agentic infrastructure control plane"
-- install in ~1 minute on macOS/Windows/Linux
-- use existing credentials (no hosted credential custody requirement)
-- human-approved execution flow for infra changes
+## Product capability map (evidence-backed)
+1) Local-first operations model
+- Strong repeated signal across homepage and structured metadata.
+- Implies appeal for teams with strict credential-custody concerns.
 
-Source evidence:
-- homepage metadata, hero copy, and feature sections: https://clankercloud.ai/
-- FAQ confirms local credential model and target personas: https://clankercloud.ai/faq
+2) Multi-cloud + K8s surface unification
+- Explicit provider list and visual workflows suggest broad orchestration intent.
+- Current evidence is mostly product-claims and UI screenshots; not yet benchmarked publicly.
 
-Observed target personas (explicitly segmented on site):
-1. Builders/founders shipping vibe-coded or AI-generated apps to production
-2. DevOps/SRE teams handling multi-cloud operations
-3. AI research teams managing training/deployment infra
+3) Human-in-the-loop change control
+- Site repeatedly references approved plans/human-approved execution.
+- This is valuable for teams trying to avoid unsafe autonomous infra mutations.
 
-Sources:
-- homepage nav and persona pages: https://clankercloud.ai/ , https://clankercloud.ai/vibe-coding-to-production , https://clankercloud.ai/ai-devops-for-teams , https://clankercloud.ai/ai-researchers
+4) AI-assisted infra interaction
+- “Talk to infra” and “BYOK” messaging plus active open-source repo activity suggest active AI agent integration work.
 
----
+## Open-source and execution signals (third-party)
+Repository: https://github.com/bgdnvk/clanker
 
-## 2) Product capabilities (publicly claimed)
-### 2.1 Deployment + control workflows
-Claimed capabilities:
-- GitHub-to-deploy flow with inferred plan and approval gate
-- plain-English infra querying
-- multi-provider operations from one surface
-- topology/health/cost visualization
-- BYOK (bring your own model/API keys)
-- BYOA (bring your own agents in Node/Python)
-
-Sources:
-- homepage capabilities section: https://clankercloud.ai/
-- FAQ clarifications: https://clankercloud.ai/faq
-
-### 2.2 Supported environments/providers (claimed)
-Providers listed across pages:
-- AWS, GCP, Azure
-- Kubernetes
-- Cloudflare, Hetzner, DigitalOcean
-- GitHub workflows
-
-Sources:
-- homepage provider chips and copy: https://clankercloud.ai/
-- FAQ provider answer: https://clankercloud.ai/faq
-
-### 2.3 Evals page (interesting but currently self-published)
-The `/evals` page publishes model ranking cards and benchmark-like scoring for infra tasks.
-This is useful for product narrative, but should be treated as internal/vendor-produced evaluation until methodology reproducibility is independently validated.
-
-Source:
-- https://clankercloud.ai/evals
-
----
-
-## 3) Pricing + commercial packaging (public)
-Public pricing blocks on homepage:
-- Beta: $0/mo
-- Basic: $20/mo
-- Pro: $30/mo
-- Enterprise: custom
-
-Notable Pro language includes:
-- optional backend
-- "models (coming soon)"
-- nightly features
-- partner discounts
-
-Commercial interpretation:
-- Low listed price points likely optimized for early adoption and feedback velocity
-- Enterprise remains custom, suggesting evolving packaging for security/compliance demands
-
-Source:
-- https://clankercloud.ai/
-
----
-
-## 4) Maturity signals from code/distribution footprint
-## 4.1 Open-source CLI repo (strong signal)
-Repository: `bgdnvk/clanker`
-Observed via GitHub API:
-- created: 2025-08-11
-- stars: 218
-- forks: 12
-- open issues: 6
-- updated recently (as of research date)
-- language: Go
-- MIT license
-
-Source:
-- https://api.github.com/repos/bgdnvk/clanker
-- repo page: https://github.com/bgdnvk/clanker
-
-### 4.2 Release history indicates active iteration
-Observed release tags include:
-- `v0.0.1-meet-your-maker` (2025-12)
-- `v0.0.2` (2026-01)
-- `v0.0.3` (2026-03)
-
-Release notes for `v0.0.3` mention broad infra scope additions (k8s, GCP, Azure, Cloudflare, IAM, plan flows, etc.).
-
-Source:
-- https://api.github.com/repos/bgdnvk/clanker/releases?per_page=5
-
-### 4.3 Distribution channel exists
-Homebrew tap exists under `clankercloud/homebrew-tap` with formula and binary references (early versions).
-
-Sources:
-- https://github.com/clankercloud/homebrew-tap
-- https://raw.githubusercontent.com/clankercloud/homebrew-tap/master/Formula/clanker.rb
-
----
-
-## 5) Company context and team signals
-Public company site (`novlabs.ai`) links directly to:
-- Clanker Cloud web product
-- Clanker CLI GitHub
-
-Stated framing:
-- "AI Systems Engineering research lab"
-- vision focused on agentic systems engineering and infra operations abstraction
-
-Team page publicly lists:
-- CEO: Bogdan Novykov
-- CTO: Nash Rafeeq
-
-Sources:
-- https://novlabs.ai/
-- https://novlabs.ai/mission/
-- https://novlabs.ai/team/
-- LinkedIn org link present on site footer: https://www.linkedin.com/company/novlabs
-
----
-
-## 6) Demo and proof artifacts
-Demo page includes multiple embedded YouTube demos around:
-- public lambda creation/deletion
-- EKS create/status/delete flows
-- early alpha topology/Kubernetes views
-
-Video IDs found on demo page:
-- kGzREATqqgI
-- 9GFRA-W3az0
-- -ab9LOvXeJo
-- Je7Hr8AOSWQ
-- I4kCiwYdnOg
-- 1P64vH2_w2E
-- wXE3ZBFY5Qo
-- pNO7tBooITU
-
-Source:
-- https://clankercloud.ai/demo
-- YouTube oEmbed metadata for the above IDs
+Observed via GitHub API on 2026-03-25:
+- Stars: 218
+- Forks: 12
+- Open issues: 6
+- Language: Go
+- License: MIT
+- Created: 2025-08-11
+- Updated: 2026-03-25
+- Recent commits include substantial infra/deploy reliability changes and agent integration work (including Hermes integration references).
+- Top contributors are concentrated (2 primary maintainers + light external contribution), which is common for early-stage tools but introduces key-person concentration risk.
 
 Interpretation:
-- confirms end-to-end product storytelling and workflow intent
-- still not equivalent to independent production case studies/SLA proofs
+- Not vaporware: there is active code and recent shipping.
+- Still early in ecosystem depth: stars and contributor breadth are promising but not yet at mature platform scale.
 
----
+## Market framing and competitor context
+Clanker Cloud appears closer to an “AI-augmented control plane for infra operators” than to a pure serverless app platform.
 
-## 7) Security/compliance and risk posture (based on public docs)
-What is clearly stated:
-- credentials remain on user machine (local-first model)
-- users are responsible for reviewing approved actions
-- beta software may be incomplete/unstable
-- users bear responsibility for resulting outages, costs, and exposure
+A useful adjacent comparator is Rivet (stateful workloads/actors platform):
+- Rivet messaging centers on stateful runtime primitives, open-source actor model, and managed cloud pricing tiers.
+- Clanker Cloud messaging centers on local-first infra control and deployment operations across existing providers.
 
-Source:
-- FAQ: https://clankercloud.ai/faq
-- Terms: https://clankercloud.ai/terms
+Practical takeaway:
+- Rivet-like products compete on runtime model and app architecture.
+- Clanker Cloud competes on operational control, cross-provider visibility, and safer AI-assisted infra changes.
 
-What is not clearly evidenced publicly (at time of research):
-- SOC 2 / ISO 27001 reports
-- formal data-processing addendum details
-- public incident history
-- enterprise reference architecture docs
+## Risk assessment
+1) Product maturity risk: Medium-High
+- Beta-oriented language, roadmap-heavy promises, desktop availability caveat.
 
-Practical conclusion:
-- security narrative is promising for credential custody minimization
-- operational/legal risk transfer to customer is explicit in terms
+2) Execution concentration risk: Medium
+- Contributor concentration and early ecosystem size.
 
----
+3) Security/compliance risk: Medium
+- Strong local-first posture is positive; however enterprise-grade assurance requires external audits/docs not found in public materials reviewed.
 
-## 8) Competitive landscape (quick strategic view)
-Likely adjacent categories:
-1. Agentic DevOps assistants
-2. Infrastructure-as-code + orchestration tooling
-3. Multi-cloud control plane/observability consoles
-4. AI coding-to-prod orchestration tools
+4) Adoption risk: Medium
+- Clear value proposition but limited public proof points (case studies/verified outcomes not prominent in scanned sources).
 
-Clanker Cloud differentiator (claimed):
-- local-first + approval-gated execution + multi-cloud + agentic interaction
+## Who should evaluate now
+Best-fit early adopters:
+- Lean DevOps/SRE teams managing multi-cloud/K8s with frequent context switching.
+- AI-native builders who want deployment acceleration but still require explicit approval gates.
+- Teams that prohibit centralized credential custody in third-party SaaS control planes.
 
-Potential moat if executed well:
-- rich local context ingestion + safe action orchestration
-- fast, opinionated workflows from repo to running infra
+Lower-fit today:
+- Organizations requiring mature enterprise attestations before pilot.
+- Teams needing broad third-party integration marketplace and deep partner ecosystem now.
 
-Potential fragility:
-- broad scope early (many providers + many personas)
-- trust/compliance barriers in larger orgs
-- incumbent overlap (GitHub/AWS/GCP-native + IaC ecosystem)
+## 30-day pilot design (recommended)
+1) Pick one non-critical service with real cloud resources.
+2) Measure baseline:
+- time-to-first-deploy,
+- mean time to diagnose incident,
+- number of manual console hops,
+- change failure rate for infra changes.
+3) Run Clanker Cloud pilot for two weeks with approval gates enabled.
+4) Compare metrics and collect operator trust feedback.
+5) Decide expand/hold based on measurable improvements, not feature demos.
 
----
+## Confidence and evidence quality
+Confidence: Medium
+- High confidence on positioning, stated capabilities, pricing, and open-source activity.
+- Medium/low confidence on production reliability at scale due to limited independent customer outcome evidence in public sources.
 
-## 9) Diligence checklist before serious adoption
-If evaluating for production use, request:
-1. Security architecture whitepaper (key management, telemetry, update channel)
-2. Threat model and permission boundary model
-3. Audit logs and action replay guarantees
-4. Rollback guarantees for "apply" workflows
-5. Terraform/IaC interoperability specifics (import, drift, state handling)
-6. Model-provider isolation and prompt/data retention behavior
-7. Customer references and incident response SLA
-8. Enterprise compliance roadmap and timeline
-
----
-
-## 10) Confidence rating
-Overall confidence in this brief: Medium.
-- High confidence: official website claims, pricing, terms language, repo/release metadata.
-- Medium confidence: inferred product maturity and strategic interpretation.
-- Lower confidence: independent third-party market validation (limited clean external search signal for the exact brand term).
-
----
-
-## Sources (primary)
+## Key evidence links
+Primary:
 - https://clankercloud.ai/
-- https://clankercloud.ai/faq
-- https://clankercloud.ai/demo
-- https://clankercloud.ai/terms
 - https://clankercloud.ai/vibe-coding-to-production
 - https://clankercloud.ai/ai-devops-for-teams
 - https://clankercloud.ai/ai-researchers
 - https://clankercloud.ai/evals
-- https://novlabs.ai/
-- https://novlabs.ai/mission/
-- https://novlabs.ai/team/
+- https://clankercloud.ai/faq
+- https://clankercloud.ai/terms
+
+Open-source:
 - https://github.com/bgdnvk/clanker
 - https://api.github.com/repos/bgdnvk/clanker
-- https://api.github.com/repos/bgdnvk/clanker/releases?per_page=5
-- https://api.github.com/repos/bgdnvk/clanker/issues?state=open&per_page=10
-- https://github.com/clankercloud/homebrew-tap
-- https://raw.githubusercontent.com/clankercloud/homebrew-tap/master/Formula/clanker.rb
+
+Market context references:
+- https://rivet.dev/cloud/
+- https://rivet.dev/rivet-vs-cloudflare-workers/
+- https://rivet.dev/startups/
 
 ---
-
-## Notes on methodology
-- This report prioritizes verifiable primary artifacts (official pages + public repository metadata).
-- Search engine recall for exact keyword combinations was noisy due the generic term "clanker", so independent third-party coverage appears limited/less discoverable at this time.
+If useful, I can next produce:
+1) a side-by-side vendor scorecard (Clanker vs 4 alternatives), or
+2) a technical due-diligence checklist you can hand to the Clanker team before pilot sign-off.
