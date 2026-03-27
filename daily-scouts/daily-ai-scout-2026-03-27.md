@@ -1,83 +1,108 @@
 # Daily AI Scout — 2026-03-27
 
-## A) Executive summary
-- **Speech/audio AI accelerated sharply** in the last 24h, with multiple launches/updates around transcription and text-to-speech, including open-weight momentum.
-- **Defense AI funding dominated capital flows**: Shield AI’s reported multi-billion round was the largest high-confidence funding signal in this cycle.
-- **Agent ecosystem heat remains high**: open-source long-horizon/automation stacks continue to absorb significant developer attention.
-- **Security risk is rising alongside agent adoption**: new defensive frameworks and live vulnerability reports suggest security is becoming a first-order gating factor for enterprise rollout.
+## A) Executive summary (high-signal)
+
+The center of gravity in the last 24h is **not “new bigger base models”**. It is the stack around them:
+
+1. **Voice is becoming a systems problem, not just a model problem.** Mistral (Voxtral TTS), Cohere (Transcribe), and vLLM day-0 integrations point to a new battleground: latency, streaming ergonomics, and open deployment pathways.
+2. **Agent products are absorbing real software workflow surface area.** OpenAI Codex plugins expand from coding into planning/research/ops tools (Slack, Notion, Gmail, Figma, Drive), which is exactly how agents become default work interfaces.
+3. **Infrastructure economics are shifting in favor of open + self-hosted.** Public narratives from HF/open-source leaders plus concrete vLLM optimization work indicate a credible migration path from pure API consumption to hybrid in-house inference.
+4. **Safety is becoming productized at the interaction layer.** DeepMind’s manipulation-risk research and Anthropic’s classifier-driven auto-mode framing both signal the same trend: trust/approval systems are moving into runtime control planes.
 
 ---
 
-## B) Model/API launches and releases
-1. **Google + Cohere audio-model announcements** reported in ecosystem coverage, signaling intensified competition in speech and multimodal enterprise workloads.  
-   Source: SiliconANGLE (Mar 26) — https://news.google.com/rss/articles/CBMif0FVX3lxTE9KX3hMazFENW5QU3Jwb0RRSjdMdFFSUU5EMDlXODV2bnhzWnB0NmZlc2tDVUpNNDUwdERYMjdVeTN3dWJZWnltYUNVXzFDa2Y5Z283R2gxSS1CTDRMU2U1b0I0SFR2TllPMy1WY3UteURMeXJvLU5kTnNoUGZES2M?oc=5
-2. **Mistral released a new open-source speech-generation model** (reported by TechCrunch / VentureBeat), reinforcing open-model pressure on incumbent closed audio APIs.  
-   Sources:  
-   - TechCrunch — https://news.google.com/rss/articles/CBMingFBVV95cUxQcWotZm04OXpoWm41ZzdiVXNram9PYndnSzEtaGR0TzBWOS1EU0c5RjFXMi1uTDEtVUJLcldQb2F6UkR1a0wyUjFkUkRQRDdBM1NwVHlpOVBYY1JWR2tOMy15Y3dLN0NtTDVOYk42V21WM1pEemdSeDVGMlZtY1RGNlRNUFozTEJzRGwxWTgwUW9PRzNMODVpR2c1NUpwQQ?oc=5  
-   - VentureBeat — https://news.google.com/rss/articles/CBMitAFBVV95cUxOZUtQbHhIa2daZ01KZjVVYkw1UkhsQmlGNVBwdjA0TDBRR0Q1anY0TDdPMDBZekMxU0VTNTVfOHpTY3RtNWhROHpnLW9BamNCTGpsTktyQmhJNEVVQ1llVVh3TklMUTgtOXVaUHZKanhHYjR5TklScHA0dGxuWDI0akpyNkdyeXVGdGt1QnN5S0hGbnQ3R2hUZWRST2JjTXZZaXhKR1VUUW5mLVhRNXRnX2JjU1o?oc=5
-3. **Cohere Transcribe open-source push** received broad pickup; practical implication is lower deployment friction for privacy-sensitive on-prem speech pipelines.  
-   Source sample: https://news.google.com/rss/articles/CBMimgFBVV95cUxNSG4yc3d6Yk1uSmZMVklmWU1TWUhMUkswTTBhUV9SMjZBajRpcHVETG1qbW1TNWNUU3dGdW0xWWstVl82TUUzbFdsQ0tfWmdMT3IyanltaTU2bEdsaXRNLS1ZejlDc3gzdEhWZnFncjZMc3RsUU9GMGQ3Z0ZXTk1BVXl2WUozXzM1ei0zN3pGd3ZQbGxYUWlGZy1n?oc=5
+## B) What moved today (X/Twitter-primary source map)
+
+### 1) OpenAI Codex plugins: agents are now “workflow-native,” not IDE-native
+- OpenAIDevs announced Codex plugin rollout across common work apps and highlighted plugin bundles (auth + skills) for app/CLI/IDE usage.
+- Why it matters: this increases agent time spent in **coordination software** (docs, chat, tickets, files), not just code editors. That’s where enterprise lock-in is built.
+- Sources:
+  - https://nitter.net/OpenAIDevs/status/2037296316104282119#m
+  - https://nitter.net/OpenAIDevs/status/2037296335020609867#m
+  - https://nitter.net/OpenAIDevs/status/2037296350682096013#m
+  - https://nitter.net/OpenAIDevs/status/2037296366087741840#m
+
+### 2) Speech stack acceleration: Voxtral TTS + Cohere Transcribe + vLLM fast-follow
+- Mistral promoted Voxtral TTS (multilingual, low-latency, voice adaptability).
+- Cohere pushed open-source Transcribe with leaderboard claims and Apache-style openness narrative.
+- vLLM publicly shipped day-0 support and encoder-decoder serving optimizations, claiming meaningful throughput improvements.
+- Why it matters: voice products are crossing from “demo quality” to “production pipeline quality,” and open infra is capturing increasing share of developer mindshare.
+- Sources:
+  - https://nitter.net/MistralAI/status/2037183026539483288#m
+  - https://nitter.net/MistralAI/status/2037183030935105578#m
+  - https://nitter.net/cohere/status/2037159129345614174#m
+  - https://nitter.net/cohere/status/2037159531973628040#m
+  - https://nitter.net/vllm_project/status/2037193518519902408#m
+  - https://nitter.net/vllm_project/status/2037197243111895066#m
+
+### 3) Gemini 3.1 Flash Live: realtime conversational UX quality race
+- DeepMind shared rollout and emphasized long-turn continuity + noisy-environment performance.
+- Why it matters: this is the practical wedge for multimodal assistant usage in uncontrolled real-world contexts (mobile, search, ambient interactions).
+- Sources:
+  - https://nitter.net/GoogleDeepMind/status/2037190678883524716#m
+  - https://nitter.net/GoogleDeepMind/status/2037192968206000530#m
+
+### 4) AI manipulation research goes operational
+- DeepMind released work on measuring manipulation risk with domain-specific findings (finance higher influence; health more constrained by existing safeguards).
+- Why it matters: this provides a path from abstract safety debates to deployable red-team/guardrail instrumentation.
+- Sources:
+  - https://nitter.net/GoogleDeepMind/status/2037224585431498831#m
+  - https://nitter.net/GoogleDeepMind/status/2037224588896006360#m
+  - https://nitter.net/GoogleDeepMind/status/2037224591458763235#m
+
+### 5) Karpathy’s “agentic DevOps” thesis got sharper
+- Karpathy argued the bottleneck is not codegen but end-to-end service assembly (payments/auth/db/security/deploy).
+- Why it matters: this reframes frontier agent value around **orchestration + environment control**, not single-shot coding benchmarks.
+- Source:
+  - https://nitter.net/karpathy/status/2037200624450936940#m
+
+### 6) Emergent human+LLM biotech workflow signal
+- Sam Altman amplified a case where LLM tooling assisted mRNA protocol design for a pet treatment workflow.
+- Why it matters: anecdotal but important—signals demand for regulated-domain copilots that combine workflow guidance + expert-in-the-loop execution.
+- Source:
+  - https://nitter.net/sama/status/2037396826060673188#m
 
 ---
 
-## C) Funding/M&A/major company moves
-1. **Shield AI raised ~$2B (reported), valuation ~$12.7B** — by far the largest capital event in this scan window; indicates sustained investor conviction in autonomous defense systems.  
-   Sources:  
-   - Reuters — https://news.google.com/rss/articles/CBMi1gFBVV95cUxNNE1PTk90R05qVGx5VnhsQnJvaWlVc0JWcGRzN2U1RGcxRFkyVTBYSFRXMGVPUHBZZGYtMzE5Z293RDJxNW94bmZ5cTZad3RhcEVmNVgwV3FKQk5hT3RGZXY4X2thTmlIUE5BWEJ4Y09KeUlQREg0Z2pheS00Z0tpM1FzOTdJSGFsemdDZUJ1RTdlVFJKMTNPR2pXU2xRNlZKWWN2SVdEZ05DOTY1ZUk1WlVMLVdZLWVmUFdTRkpWZHNwcXR5RTNIUlZmWWRpVW11c2VvUUZR?oc=5  
-   - NYT — https://news.google.com/rss/articles/CBMinAFBVV95cUxNNVpRcWdkS2RjX1JqQ0JBbUE1MnMwR1RnM0p0WThfaGtvaUx0eUVfcjFqRjVIWlFuOFd2UDgzT1BYRjdSTUdLNExfM1ItcThpMXFBS2RqY0QxQjRfWWV6LTVkbHJvTHBoNkxBbW9IX0ZFZ2ZmeGllSjUxb1Q1ME5tVGNDZkxHTVhBLTFkSWFFeWx6VGs2RmhvSlpSNGs?oc=5
-2. **Signal AI acquired Memo** (PR/communications intelligence stack expansion).  
-   Source: PRWeek — https://news.google.com/rss/articles/CBMie0FVX3lxTE5ZUFRxWG5LcDNSUWhxcmJUWUtGOFdVdlpkaTNSeU9FWkpQbXR2c3NNUDNRWTVGaTVaaGx2MVJ3MXdpc0xJYlhtcEJ2cm1FcGdsS1VJNDZCd2dhNEJ4enRzVGhLeHVDd2dtaVp2Y01Bb2sxLU03YTNvMDNVSQ?oc=5
-3. **Conntour raised $7M seed** (video surveillance AI).  
-   Source: Tech in Asia / CTech — https://news.google.com/rss/articles/CBMijgFBVV95cUxNRVdBa1hFYlRYNVFaWFk0eUo4M3QzRDBEQkZ0aTNZNlpHczBJZ0Q0a0VPajJZMmpyWmRvY05WMFFHNmVuVGxUTDl2a2JubjhqakRJVXRGOXNGWGl0b1BCX0xrX01tTUJZVXBmZ2NQdTUxSHJqajJ5ekhxZXpDTUFvTDdQNmRtTnUzd2NxbDV3?oc=5
+## C) Synthesis: what this implies over the next 1–2 quarters
+
+1. **“Agent UX” will look like toolchain composition, not chat quality alone.**
+   - Winning systems will ship strong auth/connectors, resilient tool calls, and auditable action logs.
+2. **Open voice stacks are entering price-performance war territory.**
+   - Expect closed vendors to defend with latency/SLA, while open stacks defend with deployability and control.
+3. **Inference runtime teams are now first-class product teams.**
+   - vLLM-style acceleration and compatibility work materially changes go-to-market viability for open models.
+4. **Safety controls will become visible product features.**
+   - “Auto mode with learned approvals” and manipulation-risk evaluation likely become procurement checklist items.
 
 ---
 
-## D) Research breakthroughs
-- **Near-term “breakthrough” signals were mostly commercialization-adjacent** (speech, multimodal, model deployment) rather than clearly validated new SOTA academic claims in this 24h window.
-- **Meta brain-activity prediction model coverage** suggests continued frontier push in neuro-AI interfaces, but should be treated as early-stage until broader technical validation artifacts are reviewed.  
-  Source: https://news.google.com/rss/articles/CBMigwFBVV95cUxQX0hjY0lyNzNseWQtWGo2OEFueGRUUGFYNjcwVTNQZk5DcnY1bngzRTBjcWxUNlNXWG1pMU81dzVJSHdJdGJHUmpzdjdwbS1RQXZBYUZyZjhpVncwM2lSdWpjYks2c2JIcjZhYnFGU3BIQUU2bVdkUVdfbmd2c0xrWHpSZw?oc=5
+## D) GitHub Trending (ranked by 24h star gains, total stars <100k)
+
+**Method:** GitHub Trending daily page, sorted by `stars today`, filtered to repos with total stars `<100,000`.
+
+| Rank | Repo | 24h stars | Total stars | Lang | URL |
+|---:|---|---:|---:|---|---|
+| 1 | mvanhorn/last30days-skill | 2,685 | 11,278 | Python | https://github.com/mvanhorn/last30days-skill |
+| 2 | bytedance/deer-flow | 2,394 | 49,387 | Python | https://github.com/bytedance/deer-flow |
+| 3 | Vaibhavs10/insanely-fast-whisper | 1,370 | 11,545 | Jupyter Notebook | https://github.com/Vaibhavs10/insanely-fast-whisper |
+| 4 | ruvnet/RuView | 1,002 | 43,494 | Rust | https://github.com/ruvnet/RuView |
+| 5 | Yeachan-Heo/oh-my-claudecode | 598 | 13,156 | TypeScript | https://github.com/Yeachan-Heo/oh-my-claudecode |
+| 6 | datalab-to/chandra | 557 | 6,468 | Python | https://github.com/datalab-to/chandra |
+| 7 | agentscope-ai/agentscope | 437 | 20,833 | Python | https://github.com/agentscope-ai/agentscope |
+| 8 | virattt/dexter | 210 | 19,224 | TypeScript | https://github.com/virattt/dexter |
+| 9 | twentyhq/twenty | 117 | 41,546 | TypeScript | https://github.com/twentyhq/twenty |
+
+### Quick read of the ranking
+- **Top slots are dominated by agents + research automation**, not generic app frameworks.
+- **Speech and document intelligence remain hot** (`insanely-fast-whisper`, `chandra`).
+- **Financial-agent specialization** (`dexter`) is still attracting focused developer demand.
 
 ---
 
-## E) Tooling/agent ecosystem updates
-1. **Bytedance DeerFlow remains a major open-source attention magnet** in daily GitHub trending (long-horizon super-agent framing).  
-   Repo: https://github.com/bytedance/deer-flow
-2. **Agent security is moving center-stage**: Zenity introduced an open-source framework targeting autonomous-agent security controls.  
-   Source: https://news.google.com/rss/articles/CBMiywFBVV95cUxQazlLb1VFNUlHd09tTlpKT2l2VzNaclhnVnZCQmhxNVRnSXdwZUxvelJpRC1ORzZyRWVrVmlxRFlFM1RzeXhhaGNlTU9lV21xSXZSWlp0UVpFWXM1ck4tcXE2UEpucmNrcXlRRGRRcjNLS1BwV194NUgxM1RVMjJyNTh6Zk5qaUFrMVFxc0p0VGNFd21GN193bnVXU3dMQm1Fb2Jra2RpWU1pblQ3R1BqNFVHbFpMVHMzcS1sRVV3YjJIUExRWU5uX1d5SQ?oc=5
-3. **Langflow vulnerability under active exploitation** (Dark Reading report) is a practical warning for teams shipping agent platforms without hardening.  
-   Source: https://news.google.com/rss/articles/CBMioAFBVV95cUxNN2xlblpXclJmbFJ6emtPaTU5SjRZUmg5OW9QYmpCd0dYVkxZMDJKeDVEMFdjdklLN2ExWjQ2ODRwVEJXblFqYmlleUtTMDFPZHB0RVVTN2dqaklhZWxQcWRuSVZ1bTQ3a25JR21jU0E3NXYtQW1FVFpHRHI5RkJ3RloycjgyMk9kc3ZKY3FNQ1E3TFF4VldYcy1lUGYxMEt6?oc=5
-4. **Vercel JSON-Render release (InfoQ coverage)** points to faster UI composition workflows for AI-native apps.  
-   Source: https://news.google.com/rss/articles/CBMiZEFVX3lxTE5JeHpjdEpoNG1udGs3bWVHY2FWZGdBTms5dVpJT1FrVDBJZ2Y1T202TWdlZDNkUHVfMVhZcHVrWi1lYVhheFZXajBJajVZcHN1ME5mZHZESTFkUl8tOXVpdnhEYkc?oc=5
-
----
-
-## F) Market implications
-- **Open-weight speech stack commoditization is accelerating**: pricing pressure on proprietary speech APIs likely increases through Q2.
-- **Defense/autonomy remains one of the few AI segments absorbing very large private rounds**, supporting premium multiples for dual-use AI infrastructure.
-- **Agent adoption will bifurcate by security posture**: teams with strong observability, isolation, and policy controls can ship faster; others may face procurement drag.
-- **Developer mindshare remains the best early indicator** for platform momentum: today’s GitHub deltas strongly favor agent orchestration + multimodal infra.
-
----
-
-## G) GitHub Trending (24h stars gained, total stars <100k)
-**Source:** GitHub Trending daily page (`stars today` metric).  
-**Filter applied:** total stars `< 100,000` only.  
-**Result count:** 9 qualifying repositories (fewer than 10 available after filter).
-
-| Rank | Repo | Description | Language | Stars gained (24h) | Total stars | URL | Relevance |
-|---:|---|---|---|---:|---:|---|---|
-| 1 | `mvanhorn/last30days-skill` | AI agent skill for cross-platform research synthesis | Python | 2,685 | 10,524 | https://github.com/mvanhorn/last30days-skill | Strong signal for automated analyst-style research workflows. |
-| 2 | `bytedance/deer-flow` | Open-source long-horizon super-agent harness | Python | 2,394 | 48,751 | https://github.com/bytedance/deer-flow | Reinforces enterprise interest in durable autonomous task loops. |
-| 3 | `Vaibhavs10/insanely-fast-whisper` | Fast Whisper inference stack | Jupyter Notebook | 1,370 | 11,331 | https://github.com/Vaibhavs10/insanely-fast-whisper | Speech infra demand remains very strong. |
-| 4 | `ruvnet/RuView` | WiFi-based pose/vitals sensing without cameras | Rust | 1,002 | 43,280 | https://github.com/ruvnet/RuView | Privacy-preserving ambient intelligence use-cases gaining traction. |
-| 5 | `Yeachan-Heo/oh-my-claudecode` | Teams-first multi-agent orchestration for Claude Code | TypeScript | 598 | 12,798 | https://github.com/Yeachan-Heo/oh-my-claudecode | Multi-agent developer tooling is still scaling rapidly. |
-| 6 | `datalab-to/chandra` | OCR for complex docs/tables/forms/handwriting | Python | 557 | 6,239 | https://github.com/datalab-to/chandra | High pull for document-AI production pipelines. |
-| 7 | `agentscope-ai/agentscope` | Framework to build visible and trustworthy agents | Python | 437 | 20,548 | https://github.com/agentscope-ai/agentscope | Observability + trustability in agents remains a top buyer theme. |
-| 8 | `virattt/dexter` | Autonomous agent for deep financial research | TypeScript | 210 | 19,053 | https://github.com/virattt/dexter | Financial-agent workflows continue to attract dev mindshare. |
-| 9 | `twentyhq/twenty` | Open modern CRM alternative | TypeScript | 117 | 41,335 | https://github.com/twentyhq/twenty | AI-adjacent business app modernization still captures broad interest. |
-
----
-
-### Notes on methodology
-- News scan window targeted the latest ~24h via Google News RSS queries across launches, funding/M&A, research, and tooling.
-- GitHub ranking was sorted by **24h star gains** as shown on GitHub Trending daily, then filtered by **total stars <100k**.
+## E) Methodology note
+- Primary discovery source: **X/Twitter via Nitter mirrors** (not Google News).
+- Window: latest ~24–36h to capture overnight global posting cycles.
+- Bias controls:
+  - Prioritized original announcements over third-party reposts when possible.
+  - Used GitHub Trending `stars today` as direct momentum signal.
