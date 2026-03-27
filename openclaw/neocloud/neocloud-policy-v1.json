@@ -1,0 +1,94 @@
+{
+  "version": "v1",
+  "principals": {
+    "owner": {
+      "role": "controls_billing_infra_integrations_policy"
+    },
+    "agent": {
+      "role": "delegated_principal"
+    }
+  },
+  "defaults": {
+    "environment": "dev",
+    "failMode": "closed",
+    "leastPrivilege": true,
+    "dryRunForNewFlows": true
+  },
+  "environments": {
+    "dev": {
+      "writeActionsRequireApproval": false
+    },
+    "prod": {
+      "writeActionsRequireApproval": true
+    }
+  },
+  "capabilities": [
+    "compute.modal.run_job",
+    "compute.modal.deploy_function",
+    "cloud.digitalocean.vm.create",
+    "email.send",
+    "payments.stripe.charge"
+  ],
+  "riskTiers": {
+    "tier0_auto_allow": [
+      "read",
+      "list",
+      "status",
+      "report",
+      "dry_run"
+    ],
+    "tier1_approval_required": [
+      "compute.modal.run_job",
+      "compute.modal.deploy_function",
+      "cloud.digitalocean.vm.create",
+      "email.send"
+    ],
+    "tier2_sync_approval_required": [
+      "payments.stripe.charge",
+      "destructive.delete_resource",
+      "prod.data.write"
+    ]
+  },
+  "budgets": {
+    "perActionUsd": 3,
+    "dailyAgentUsd": 20,
+    "monthlyWorkspaceUsd": 200
+  },
+  "grantPolicy": {
+    "required": true,
+    "ttlMinutesDefault": 60,
+    "revocable": true,
+    "requestMustInclude": [
+      "capability",
+      "reason",
+      "scope",
+      "estimatedCostUsd"
+    ]
+  },
+  "modal": {
+    "dedicatedToken": true,
+    "secretsScopedPerJob": true,
+    "initialConcurrency": "low",
+    "prodDeployRequiresApproval": true
+  },
+  "audit": {
+    "required": true,
+    "fields": [
+      "timestamp",
+      "owner_id",
+      "agent_id",
+      "task_id",
+      "capability",
+      "grant_id",
+      "decision",
+      "estimate_cost_usd",
+      "actual_cost_usd",
+      "execution_result"
+    ]
+  },
+  "safetySwitches": {
+    "globalPause": true,
+    "revokeAllActiveGrants": true,
+    "approvalsOnlyMode": true
+  }
+}

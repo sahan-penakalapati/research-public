@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neocloud.local/schemas/audit-event-schema.json",
+  "title": "NeoCloud Audit Event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "timestamp",
+    "request_id",
+    "owner_id",
+    "agent_id",
+    "environment",
+    "capability",
+    "decision"
+  ],
+  "properties": {
+    "event_id": { "type": "string", "minLength": 8 },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "capability.requested",
+        "capability.allowed",
+        "capability.denied",
+        "approval.requested",
+        "approval.approved",
+        "approval.denied",
+        "budget.reserved",
+        "budget.blocked",
+        "budget.captured",
+        "budget.released",
+        "execution.started",
+        "execution.finished",
+        "execution.failed",
+        "cost.estimated",
+        "cost.actual",
+        "cost.reconciled"
+      ]
+    },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "request_id": { "type": "string" },
+    "task_id": { "type": ["string", "null"] },
+    "run_id": { "type": ["string", "null"] },
+    "owner_id": { "type": "string" },
+    "agent_id": { "type": "string" },
+    "environment": { "type": "string", "enum": ["dev", "prod"] },
+    "capability": { "type": "string" },
+    "grant_id": { "type": ["string", "null"] },
+    "approval_id": { "type": ["string", "null"] },
+    "decision": {
+      "type": "string",
+      "enum": ["auto_allowed", "approved", "denied", "blocked", "pending"]
+    },
+    "estimate_cost_usd": { "type": ["number", "null"], "minimum": 0 },
+    "actual_cost_usd": { "type": ["number", "null"], "minimum": 0 },
+    "currency": { "type": "string", "default": "USD" },
+    "provider": { "type": ["string", "null"] },
+    "provider_ref": { "type": ["string", "null"] },
+    "result_status": {
+      "type": ["string", "null"],
+      "enum": ["success", "failed", "timeout", "cancelled", null]
+    },
+    "error_code": { "type": ["string", "null"] },
+    "metadata": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": false
+}
